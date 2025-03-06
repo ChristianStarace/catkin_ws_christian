@@ -1,0 +1,5 @@
+<launch>
+    <include file="$(find match_tutorial_tasks)/launch/task_02/task02.launch"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find match_tutorial_tasks)mir/mir_examples/rviz/single_mir_visualization.rviz" output="screen"/>
+</launch>
+

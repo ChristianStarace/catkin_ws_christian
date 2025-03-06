@@ -1,0 +1,7 @@
+<launch>
+	<include file="$(find match_gazebo)/launch/gazebo_world_common.launch">
+		<arg name="world_name" default="empty_world"/>
+	</include>
+
+	<include file="$(find mir_launch_sim)/launch/mir_100.launch"/>
+</launch>

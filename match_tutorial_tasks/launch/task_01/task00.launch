@@ -1,0 +1,13 @@
+<launch>
+	<include file="$(find match_gazebo)/launch/scale.launch">
+	</include>
+	<include file="$(find mir_launch_sim)/launch/mir_600.launch">
+		<arg name="robot_x"   default="40.0" />
+		<arg name="robot_y"   default="40.0" />
+		<arg name="robot_yaw" default="90.0" />  
+	</include>	
+</launch>
+
+<!-- Codice su ROS da usare:
+roslaunch match_tutorial_tasks task00.launch 
+(non serve niente prima)-->

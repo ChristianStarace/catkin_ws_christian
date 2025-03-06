@@ -1,0 +1,52 @@
+<launch>
+    <!-- Space -->
+    <include file="$(find match_gazebo)/launch/big_square.launch"/>
+
+    <!-- Argument for controll the number of robot -->
+    <arg name="spawn_multi_robots" value="false"/>
+
+
+    <!-- if true spawn 3 robot -->
+    <group if="$(arg spawn_multi_robots)">       
+        <!-- Spawn mir1 -->
+        <include file="$(find mir_launch_sim)/launch/mir_200.launch" ns="mir1">
+            <arg name="robot_x" value="0"/>
+            <arg name="robot_y" value="0.5"/>
+            <arg name="robot_yaw" value="0"/>
+            <arg name="tf_prefix"   value="mir1"/>       
+            <arg name="model_name"  value="mir1"/> 
+        </include> 
+        <!-- Spawn mir2 -->
+        <include file="$(find mir_launch_sim)/launch/mir_200.launch" ns="mir2">
+            <arg name="robot_x" value="0"/>
+            <arg name="robot_y" value="-0.5"/>
+            <arg name="robot_yaw" value="0"/>
+            <arg name="tf_prefix"   value="mir2"/>       
+            <arg name="model_name"  value="mir2"/> 
+        </include>
+        <!-- Spawn mir3 -->
+        <include file="$(find mir_launch_sim)/launch/mir_200.launch" ns="mir3">
+            <arg name="robot_x" value="2"/>
+            <arg name="robot_y" value="0"/>
+            <arg name="robot_yaw" value="0"/>
+            <arg name="tf_prefix"   value="mir3"/>       
+            <arg name="model_name"  value="mir3"/> 
+        </include>
+        <!-- RViz 3 robot-->
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find match_tutorial_tasks)/rviz/multi_mir_visualization.rviz" output="screen"/>
+    </group>
+
+
+    <!-- Gruppo per creare un solo robot se spawn_multi_robots è false -->
+    <group unless="$(arg spawn_multi_robots)">        
+        <!-- unless true spawn 1 robot -->
+        <include file="$(find mir_launch_sim)/launch/mir_200.launch">
+            <arg name="robot_x" value="0"/>
+            <arg name="robot_y" value="0"/>
+            <arg name="robot_yaw" value="0"/>
+        </include>
+        <!-- RViz 1 robot-->
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find match_tutorial_tasks)/rviz/single_mir_visualization.rviz" output="screen"/>
+    </group>
+
+</launch>

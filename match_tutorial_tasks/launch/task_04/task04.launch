@@ -1,0 +1,36 @@
+<launch>
+    <!-- Create the space-->
+    <include file="$(find match_gazebo)/launch/big_square.launch"/>
+
+    <!-- Spawn robot mir1 -->
+        <include file="$(find mir_launch_sim)/launch/mir_200.launch" ns="mir1">
+            <arg name="robot_x" value="0"/>
+            <arg name="robot_y" value="0.5"/>
+            <arg name="robot_yaw" value="0"/>
+            <arg name="tf_prefix"   value="mir1"/>       
+            <arg name="model_name"  value="mir1"/> 
+        </include>
+
+    <!-- Spawn mir2 -->
+        <include file="$(find mir_launch_sim)/launch/mir_200.launch" ns="mir2">
+            <arg name="robot_x" value="0"/>
+            <arg name="robot_y" value="-0.5"/>
+            <arg name="robot_yaw" value="0"/>
+            <arg name="tf_prefix"   value="mir2"/>       
+            <arg name="model_name"  value="mir2"/> 
+        </include>
+
+    <!-- Spawn mir3 -->
+        <include file="$(find mir_launch_sim)/launch/mir_200.launch" ns="mir3">
+            <arg name="robot_x" value="2"/>
+            <arg name="robot_y" value="0"/>
+            <arg name="robot_yaw" value="0"/>
+            <arg name="tf_prefix"   value="mir3"/>       
+            <arg name="model_name"  value="mir3"/> 
+        </include>
+
+    <!-- Apre RViz-->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find match_tutorial_tasks)mir/mir_examples/rviz/multi_mir_visualization.rviz" output="screen"/>
+
+</launch>
+
