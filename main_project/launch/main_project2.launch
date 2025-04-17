@@ -1,0 +1,75 @@
+
+<launch>
+
+    <!-- Abilita il tempo simulato
+    <param name="use_sim_time" value="true" /> -->
+
+    <!-- Mappa -->
+    <include file="$(find match_gazebo)/launch/scale.launch"/>
+
+    <!-- Leader -->
+    <include file="$(find mir_launch_sim)/launch/mir_600.launch" ns="mir_leader">
+        <arg name="robot_x" default="26.0"/>
+        <arg name="robot_y" default="26.0"/>
+        <arg name="robot_yaw" default="120.0" />  
+        <arg name="tf_prefix" value="mir_leader"/>       
+        <arg name="model_name" value="mir_leader"/>
+        <param name="output_frame" value="odom"/>
+        <param name="base_footprint_frame" value="camera_link"/>
+        <param from="imu_data" to="imu"/>
+    </include>
+
+    <!-- Follower -->
+    <include file="$(find mir_launch_sim)/launch/mir_600.launch" ns="mir_follower">
+        <arg name="robot_x" default="22.0"/>
+        <arg name="robot_y" default="22.0"/>
+        <arg name="robot_yaw" default="120.0"/>  
+        <arg name="tf_prefix" value="mir_follower"/>       
+        <arg name="model_name" value="mir_follower"/> 
+    </include>	
+
+    <!-- Map server -->
+    <node pkg:="map_server" type="map_server" name="map_server" args="$(find match_gazebo)/maps/scale.yaml" output="screen">
+    <param name name="frame_id" value="map"/>
+    </node>
+
+    <!-- Navigation -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find mir_navigation)/config/Planner/GlobalPlanner/GlobalPlanner.yaml" command="laod" ns="global_costmap"/>
+        <rosparam file="$(find mir_navigation)/config/Planner/LocalPlanner/DWAPlannerROSP.yaml"command="laod" ns="local_costmap"/>
+        <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
+        <param name="base_local_planner" value="locall_planenr/LocalPlanner"/>
+    </node>
+
+    <!-- Visualisation -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find )"/> -->
+
+<!-- 
+    Remapping TF frames per move_base_flex
+    <node pkg="tf2_ros" type="static_transform_publisher" name="remap_odom" 
+        args="0 0 0 0 0 0 mir_leader/odom odom" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="remap_base" 
+        args="0 0 0 0 0 0 mir_leader/base_footprint base_footprint"/>
+
+    AMCL per la localizzazione
+    <node pkg="amcl" type="amcl" name="amcl">
+        <remap from="scan" to="/mir_leader/scan"/>
+        <param name="frame_id" value="base_footprint"/>
+        <param name="odom_frame_id" value="odom"/>
+    </node>
+
+    Unione dei laser
+    <node pkg="tf" type="static_transform_publisher" name="merge_lasers"
+        args="0 0 0 0 0 0 base_laser_link mir_leader/front_laser_link 100" />
+    <node pkg="tf" type="static_transform_publisher" name="merge_lasers_2"
+        args="0 0 0 0 0 0 base_laser_link mir_leader/back_laser_link 100" />
+
+        Associa il laser alla base del robot
+    <node pkg="tf" type="static_transform_publisher" name="laser_to_base"
+        args="0 0 0 0 0 0 base_footprint base_laser_link 100" />
+
+        Configurazione del topic del laser
+    <param name="scan_topic" value="/mir_leader/scan" />
+    <param name="frame_id" value="base_laser_link" /> -->
+
+</launch>

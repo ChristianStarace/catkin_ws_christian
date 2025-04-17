@@ -1,0 +1,43 @@
+<launch>
+
+    <group ns="mir_leader">
+        <!-- AMCL per il leader -->
+        <include file="$(find mir_navigation)/launch/amcl.launch">
+            <arg name="tf_prefix" value="mir_leader"/>
+            <arg name="scan_topic" value="/mir_leader/scan"/>
+            <arg name="initial_pose_x" value="26.0"/>
+            <arg name="initial_pose_y" value="26.0"/>
+            <arg name="initial_pose_a" value="120.0"/>
+            <arg name="base_frame_id" value="mir_leader/base_footprint"/>
+            <arg name="odom_frame_id" value="mir_leader/odom"/>
+            <arg name="global_frame_id" value="map"/>
+        </include>
+
+        <!-- Navigation leader -->
+        <include file="$(find mir_navigation)/launch/move_base_flex.launch">
+            <arg name="tf_prefix" value="mir_leader"/>
+            <arg name="global_planner" value="GlobalPlanner"/>
+            <arg name="global_planner_config" value="$(find mir_navigation)/config/Planner/GlobalPlanner/GlobalPlanner.yaml"/>
+            <arg name="local_planner" value="DWAPlannerROS"/>
+            <arg name="local_planner_config" value="$(find mir_navigation)/config/Planner/LocalPlanner/DWAPlannerROS.yaml"/>
+        </include>
+    </group>
+
+    <group ns="mir_follower">
+        <!-- AMCL per il follower -->
+        <include file="$(find mir_navigation)/launch/amcl.launch">
+            <arg name="tf_prefix" value="mir_follower"/>
+            <arg name="scan_topic" value="/mir_follower/scan"/>
+            <arg name="initial_pose_x" value="22.0"/>
+            <arg name="initial_pose_y" value="22.0"/>
+            <arg name="initial_pose_a" value="120.0"/>
+            <arg name="base_frame_id" value="mir_follower/base_footprint"/>
+            <arg name="odom_frame_id" value="mir_follower/mobile_base_controller/odom"/>
+            <arg name="global_frame_id" value="map"/>
+        </include>
+    </group>
+
+    <!-- Visualisation -->
+    <node name="rviz" pkg="rviz" type="rviz"/>
+
+</launch>

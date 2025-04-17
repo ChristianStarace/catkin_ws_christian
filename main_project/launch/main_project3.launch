@@ -1,0 +1,47 @@
+<launch>
+
+    <!-- 🌍 Carica la mappa e il mondo -->
+    <include file="$(find match_gazebo)/launch/gazebo_world_common.launch">
+        <arg name="world_name" default="empty_world"/>
+    </include>
+
+    <!-- 🚜 Leader -->
+    <include file="$(find mir_launch_sim)/launch/mir_600.launch" ns="mir_leader">
+        <arg name="robot_x" default="0.0" />
+        <arg name="robot_y" default="0.0" />
+        <arg name="robot_yaw" default="0.0" />  
+        <arg name="tf_prefix" value="mir_leader"/>       
+        <arg name="model_name" value="mir_leader"/>
+    </include>
+	<!-- 🏁 Move Base per il leader -->
+	<include file="$(find mir_navigation)/launch/move_base.launch" ns="mir_leader"/>
+
+
+    <!-- 🧭 Localizzazione (AMCL) per il leader -->
+    <include file="$(find mir_navigation)/launch/amcl.launch" ns="mir_leader"/>
+
+    <!-- 🛰️ Fix: Aggiunta trasformazione odom -> base_footprint per il leader -->
+    <node pkg="tf" type="static_transform_publisher" name="leader_odom_tf"
+        args="0 0 0 0 0 0 mir_leader/odom mir_leader/base_footprint 100" />
+
+    <!-- 🤖 Follower -->
+    <include file="$(find mir_launch_sim)/launch/mir_600.launch" ns="mir_follower">
+        <arg name="robot_x" default="-4.0" />
+        <arg name="robot_y" default="0.0" />
+        <arg name="robot_yaw" default="0.0" />  
+        <arg name="tf_prefix" value="mir_follower"/>       
+        <arg name="model_name" value="mir_follower"/> 
+    </include>    
+
+    <!-- 🏁 Move Base per il follower -->
+    <include file="$(find mir_navigation)/launch/move_base.launch" ns="mir_follower"/>
+
+    <!-- 🧭 Localizzazione (AMCL) per il follower -->
+    <include file="$(find mir_navigation)/launch/amcl.launch" ns="mir_follower"/>
+
+    <!-- 🛰️ Fix: Aggiunta trasformazione odom -> base_footprint per il follower -->
+    <node pkg="tf" type="static_transform_publisher" name="follower_odom_tf"
+        args="0 0 0 0 0 0 mir_follower/odom mir_follower/base_footprint 100" />
+
+</launch>
+

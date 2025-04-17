@@ -1,0 +1,31 @@
+<launch>
+    <!-- Mappa -->
+    <include file="$(find match_gazebo)/launch/scale.launch"/>
+
+    <!-- Map server -->
+    <node pkg="map_server" type="map_server" name="map_server" args="$(find match_gazebo)/maps/scale.yaml" output="screen">
+        <param name="frame_id" value="map"/>
+    </node>
+
+    <group ns="mir_leader">
+        <!-- Spawn leader -->
+        <include file="$(find mir_launch_sim)/launch/mir_600.launch">
+            <arg name="tf_prefix" value="mir_leader"/>       
+            <arg name="robot_x" value="26.0"/>
+            <arg name="robot_y" value="26.0"/>
+            <arg name="robot_yaw" value="120.0"/>  
+            <arg name="model_name" value="mir_leader"/>
+        </include>
+    </group>
+
+    <group ns="mir_follower">
+        <!-- Spawn follower -->
+        <include file="$(find mir_launch_sim)/launch/mir_600.launch">
+            <arg name="tf_prefix" value="mir_follower"/>       
+            <arg name="robot_x" value="22.0"/>
+            <arg name="robot_y" value="22.0"/>
+            <arg name="robot_yaw" value="120.0"/>  
+            <arg name="model_name" value="mir_follower"/> 
+        </include>	
+    </group>
+</launch>
