@@ -121,7 +121,7 @@ class LeaderMBF:
                     self.cmd_vel_pub.publish(stop_cmd)
                     rospy.sleep(0.5)  # Piccola pausa per evitare preemption del goal successivo         
                     break  # Fermo il ciclo           
-                break  # Fermo il ciclo e arresto il robot (non so se necessario labbiamo eliminata senza verificare (23/04/25)
+                break  # Fermo il ciclo e arresto il robot 
 
             if time.time() - start_time > timeout:
                 rospy.logwarn("Timeout raggiunto, annullo il goal!")
@@ -148,7 +148,7 @@ if __name__ == '__main__':
         (33.0, 37.0, 90),    # Punto 2
         (40.0, 37.0, 0),   # Punto 3
         (40.0, 32.0, -90),   # Punto 4
-        (33.0, 32.0, 180)     # Punto 1 (ritorno punto di partenza)    ]
+        (33.0, 32.0, 180)     # Punto 1 (ritorno punto di partenza)  
     ]
     
     leader.follow_path(square_path)
