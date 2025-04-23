@@ -93,11 +93,13 @@ class LeaderMBF:
             if state == GoalStatus.SUCCEEDED:
                 rospy.loginfo("MBF segnala che il goal è stato raggiunto!")
                 self.client.cancel_goal()
+                rospy.sleep(0.5)  # Piccola pausa per evitare preemption del goal successivo
                 break
 
             if state in [GoalStatus.ABORTED, GoalStatus.REJECTED]:
                 rospy.logwarn("MBF ha fallito il goal, lo annullo.")
                 self.client.cancel_goal()
+                rospy.sleep(0.5)  # Piccola pausa per evitare preemption del goal successivo
                 break
 
             if self.is_goal_reached(x, y, yaw, pos_tolerance, yaw_tolerance):
@@ -117,12 +119,14 @@ class LeaderMBF:
                     rospy.loginfo("Goal completato, il robot si ferma.")
                     stop_cmd = Twist()
                     self.cmd_vel_pub.publish(stop_cmd)
-                    break  # Fermo il ciclo                    
-                break  # Fermo il ciclo e arresto il robot
+                    rospy.sleep(0.5)  # Piccola pausa per evitare preemption del goal successivo         
+                    break  # Fermo il ciclo           
+                # break  # Fermo il ciclo e arresto il robot (non so se necessario labbiamo eliminata senza verificare (23/04/25)
 
             if time.time() - start_time > timeout:
                 rospy.logwarn("Timeout raggiunto, annullo il goal!")
                 self.client.cancel_goal()
+                rospy.sleep(0.5)  # Piccola pausa per evitare preemption del goal successivo         
                 break
             
             rate.sleep()
