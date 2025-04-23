@@ -124,7 +124,7 @@ class LeaderMBF:
                 rospy.logwarn("Timeout raggiunto, annullo il goal!")
                 self.client.cancel_goal()
                 break
-            
+
             rate.sleep()
 
     def follow_path(self, path):
@@ -151,3 +151,8 @@ if __name__ == '__main__':
     ]
 
     leader.follow_path(square_path)
+
+
+
+
+#FINO A QUI TUTTO BENE
