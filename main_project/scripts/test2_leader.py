@@ -14,7 +14,7 @@ class LeaderMBF:
     def __init__(self):
         rospy.init_node('leader_move_base_flex_node', anonymous=True)
         
-        self.client = actionlib.SimpleActionClient('/move_base_flex/move_base', MoveBaseAction)
+        self.client = actionlib.SimpleActionClient('/mir_leader/move_base_flex/move_base', MoveBaseAction)
         rospy.loginfo("Aspettando il server di Move Base Flex...")
         self.client.wait_for_server()
         rospy.loginfo("Server MBF trovato!")
@@ -23,9 +23,9 @@ class LeaderMBF:
         self.current_y = None
         self.current_yaw = None  # Nuovo valore per l'orientamento
         
-        self.cmd_vel_pub = rospy.Publisher("/mobile_base_controller/cmd_vel", Twist, queue_size=10)
+        self.cmd_vel_pub = rospy.Publisher("/mir_leader/mobile_base_controller/cmd_vel", Twist, queue_size=10)
         
-        rospy.Subscriber("/mir_pose_simple", Pose, self.pose_callback)
+        rospy.Subscriber("/mir_leader/mir_pose_simple", Pose, self.pose_callback)
     
     def pose_callback(self, msg):
         self.current_x = msg.position.x
@@ -121,7 +121,7 @@ class LeaderMBF:
                     self.cmd_vel_pub.publish(stop_cmd)
                     rospy.sleep(0.5)  # Piccola pausa per evitare preemption del goal successivo         
                     break  # Fermo il ciclo           
-                # break  # Fermo il ciclo e arresto il robot (non so se necessario labbiamo eliminata senza verificare (23/04/25)
+                break  # Fermo il ciclo e arresto il robot (non so se necessario labbiamo eliminata senza verificare (23/04/25)
 
             if time.time() - start_time > timeout:
                 rospy.logwarn("Timeout raggiunto, annullo il goal!")
@@ -148,7 +148,9 @@ if __name__ == '__main__':
         (33.0, 37.0, 90),    # Punto 2
         (40.0, 37.0, 0),   # Punto 3
         (40.0, 32.0, -90),   # Punto 4
-        (33.0, 32.0, 180)     # Punto 1 (ritorno punto di partenza)
+        (33.0, 32.0, 180)     # Punto 1 (ritorno punto di partenza)    ]
     ]
-
+    
     leader.follow_path(square_path)
+    
+    # daje
