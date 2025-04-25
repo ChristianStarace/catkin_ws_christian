@@ -6,3 +6,11 @@ Un discorso del genere:
         🟥 Ma riparte in ritardo quando il leader inizia la rotazione, e accumula uno strascico che aumenta curva dopo curva."
 lo potremmo mettere in evidenza nella tesi nella valutazinoe dei risultati
 
+Sempre nella stessa sezione, possiamo commentare il fatto che questo codice,
+sebbene sia semplice, ha il difetto di non essere estremamente preciso,
+in particolare nel mantenere la stessa precisa distanza (perchè curve a gomito difficili)
+e quindi potrebbe essere complicato nella realtà fare in modo che il braccio del follower che deve rifornire di cemento il leader, sia sempre in posizione precisa
+(anche se forse si potrebbe risolvere con uqalcosa di meccanico... tipo un erogatore che abbia un po di gioco e un imbuto capiente nella bacinella del leader,
+o un tubo che sia elastico e con un po' di gioco)
+
+
