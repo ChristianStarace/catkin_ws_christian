@@ -14,3 +14,9 @@ e quindi potrebbe essere complicato nella realtà fare in modo che il braccio de
 o un tubo che sia elastico e con un po' di gioco)
 
 
+
+
+Il vantaggio della simulazione sono il fare le cose senza rischi (i robot costano tanto), quindi ti permette di sperimentare senza paura cercando soluzioni innovative
+inoltre fare i test nella realtà ha dei tempi di setup e di esecuzione molto piu lunghi ineffficiando il processo. Con la simulazione riesci ad essere piu veloce
+
+
