@@ -1,3 +1,4 @@
+25/04
 Un discorso del genere:
         "Hai centrato un problema classico in robotica mobile: 
         le curve strette e i cambi bruschi di direzione (tipicamente agli angoli di un poligono) sono i momenti più critici da gestire in un controllo follower.
@@ -13,10 +14,48 @@ e quindi potrebbe essere complicato nella realtà fare in modo che il braccio de
 (anche se forse si potrebbe risolvere con uqalcosa di meccanico... tipo un erogatore che abbia un po di gioco e un imbuto capiente nella bacinella del leader,
 o un tubo che sia elastico e con un po' di gioco)
 
-
-
-
 Il vantaggio della simulazione sono il fare le cose senza rischi (i robot costano tanto), quindi ti permette di sperimentare senza paura cercando soluzioni innovative
 inoltre fare i test nella realtà ha dei tempi di setup e di esecuzione molto piu lunghi ineffficiando il processo. Con la simulazione riesci ad essere piu veloce
+
+
+28/04
+come possiblile miglioramento del codice:
+1) il leader andrebbe pulito
+2) il follower andrebbe settato bene nei vari parametri (sia i 3 del PID, sia quelli sulla distanza o velocità, della deque, della tolleranza)
+
+Dopo 30 iterazioni del leader: (prendere solo i primi, perchè gli altri risultati sono usciti male)
+===================================== RISULTATI FINALI ========================================
+[INFO] [1745851748.118796, 3703.812000]: Goals raggiunti correttamente: 99
+[INFO] [1745851748.121737, 3703.815000]: Goals falliti da MBF: 13
+[INFO] [1745851748.123264, 3703.816000]: Goals falliti per timeout: 8
+[INFO] [1745851748.124933, 3703.818000]: =========================================================
+[INFO] [1745851748.127413, 3703.820000]: Tempo totale: 1.90 secondi
+[INFO] [1745851748.128650, 3703.822000]: Tempo fermo: 0.00 secondi
+[INFO] [1745851748.128844, 3703.822000]: Aggiornata posizione: x=45.29, y=47.71, yaw=-21.43°
+[INFO] [1745851748.129898, 3703.823000]: Velocità media: 0.00 m/s
+[INFO] [1745851748.133356, 3703.826000]: Precisione traiettoria: 0.00 m
+[INFO] [1745851748.134981, 3703.828000]: Deviazione standard della traiettoria: 0.00 m
+[INFO] [1745851748.136533, 3703.830000]: =========================================================
+
+Seconda prova (15 iterazioni): 
+Follower: 
+[INFO] [1745858090.951650, 9722.939000]: Entrambi i robot sono fermi per più di 60 secondi. Fermando il sistema.
+[INFO] [1745858090.965508, 9722.953000]: Tempo ciclo: 0.10 s
+[INFO] [1745858090.967670, 9722.955000]: Tempo fermo: 87.00 s
+[INFO] [1745858090.969614, 9722.957000]: Velocità media: 0.35 m/s
+[INFO] [1745858090.972584, 9722.960000]: Precisione traiettoria (deviazione standard): 2.58 m
+Leader: 
+=================================== RISULTATI FINALI ===================================
+[INFO] [1745857999.769193, 9635.668000]: Goals raggiunti correttamente: 54
+[INFO] [1745857999.769459, 9635.669000]: Aggiornata posizione: x=45.27, y=40.69, yaw=-48.78°
+[INFO] [1745857999.770915, 9635.670000]: Goals falliti da MBF: 6
+[INFO] [1745857999.774983, 9635.674000]: Goals falliti per timeout: 0
+[INFO] [1745857999.776598, 9635.676000]: =========================================================
+[INFO] [1745857999.778046, 9635.677000]: Tempo totale: 21.05 secondi
+[INFO] [1745857999.779026, 9635.678000]: Tempo fermo: 0.00 secondi
+[INFO] [1745857999.779933, 9635.679000]: Velocità media: 0.00 m/s
+[INFO] [1745857999.781393, 9635.681000]: Precisione traiettoria: 0.00 m
+[INFO] [1745857999.782551, 9635.682000]: Deviazione standard della traiettoria: 0.00 m
+[INFO] [1745857999.783544, 9635.682000]: =========================================================
 
 
