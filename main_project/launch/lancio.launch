@@ -1,0 +1,24 @@
+<launch>
+
+<!-- map -->
+     <!-- <include file="$(find match_gazebo)/launch/scale.launch">
+	</include>  -->
+
+<!-- leader -->
+	<include file="$(find mir_launch_hardware)/launch/mir_600.launch" ns="mir_leader">
+        <arg name="tf_prefix" value="mir_leader"/>       
+        <arg name="model_name" value="mir_leader"/>
+    </include>
+
+<!-- follower -->
+    <!-- <include file="$(find mir_launch_sim)/launch/mir_600.launch" ns="mir_follower">
+        <arg name="tf_prefix" value="mir_follower"/>       
+        <arg name="model_name" value="mir_follower"/> 
+    </include>	 -->
+
+    <!-- Avvia RViz con un file di configurazione predefinito -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d home/desktop/rviz_main_project.rviz" output="screen"/> -->
+
+</launch>
+
+
